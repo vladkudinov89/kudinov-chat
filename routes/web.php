@@ -16,7 +16,8 @@ Route::get('/', function () {
 });
 
 Route::post('messages' , function (\Illuminate\Http\Request $request){
-    App\Events\Message::dispatch($request->input('body'));
+//    App\Events\Message::dispatch($request->input('body'));
+    App\Events\PrivateChat::dispatch($request->all());
 });
 
 Auth::routes();
