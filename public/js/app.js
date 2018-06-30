@@ -58328,7 +58328,7 @@ exports = module.exports = __webpack_require__(96)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -58358,6 +58358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "Chat",
+    props: ['room'],
     data: function data() {
         return {
             messages: [],
@@ -58368,7 +58369,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         console.log('Component mounted.');
-        window.Echo.private('room.2').listen('PrivateChat', function (_ref) {
+        console.log(this.room);
+        window.Echo.private('room.' + this.room.id).listen('PrivateChat', function (_ref) {
             var data = _ref.data;
 
             _this.messages.push(data.body);
@@ -58377,7 +58379,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         sendMessage: function sendMessage() {
-            axios.post('/messages', { body: this.textMessage, room_id: 2 });
+            axios.post('/messages', { body: this.textMessage, room_id: this.room.id });
             this.messages.push(this.textMessage);
             this.textMessage = '';
         }

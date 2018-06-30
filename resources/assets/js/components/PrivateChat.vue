@@ -17,6 +17,7 @@
 <script>
     export default {
         name: "Chat",
+        props: ['room'],
         data(){
           return {
               messages : [],
@@ -25,14 +26,15 @@
         },
         mounted() {
             console.log('Component mounted.');
-            window.Echo.private('room.2')
+            console.log(this.room);
+            window.Echo.private('room.' + this.room.id)
                 .listen('PrivateChat' , ({data}) => {
                    this.messages.push(data.body)
                 });
         },
         methods: {
             sendMessage(){
-                axios.post('/messages' , { body: this.textMessage , room_id : 2 });
+                axios.post('/messages' , { body: this.textMessage , room_id : this.room.id });
                 this.messages.push(this.textMessage);
                 this.textMessage = '';
             }
